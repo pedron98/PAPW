@@ -1,0 +1,27 @@
+ALUNO: Pedro Augusto Vieira | 1620016281
+
+
+1) Considerando o banco de dados utilizado no projeto, crie uma consulta JPQL que retorne a quantidade de pedidos do tipo RESPONDIDO e BLOQUEADO.
+@Entity
+@NamedQuery(name=”Pedido.countForStatus”, query=”SELECT COUNT(p) FROM Pedido p WHERE p.status IN (“RESPONDIDO”,”BLOQUEADO”)
+Pubic class Pedido{
+}
+Public int selectCountPedidosForStatus(){
+	Query query = manager.createNamedQuery(“Pedido.countForStatus ");
+	int quantidade = query.getResultList();
+	return quantidade;
+}
+
+2) Crie uma consulta JPQL que retorne quantos pedidos de empréstimo BLOQUEADO foi efetuado pelo Usuário Solicitante ANTONIO.
+O status e o nome do usuário devem ser passados como parâmetro.
+@Entity
+@NamedQuery(name=”Pedido.countPedidos”, query=”SELECT COUNT(p) FROM Pedido p WHERE p.atendente LIKE :NOME AND p.status LIKE ‘%RESPONDIDO%’”)
+Pubic class Pedido{
+}
+
+Public int selectCountPedidosForUsuarioStatus(){
+	Query query = manager.createNamedQuery(“Pedido. countPedidos ");
+	query.setParameter(“nome”, “ANTONIO”)
+	int quantidade = query.getResultList();
+	return quantidade;
+}
