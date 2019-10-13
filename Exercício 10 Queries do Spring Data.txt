@@ -1,0 +1,51 @@
+// QUERY'S DO SPRING DATA:
+
+@Repository
+public interface PersonRepository extends JpaRepository(Person.class, Long) {
+
+    // 1) 
+       @Query("SELECT p FROM Person p WHERE p.firstName LIKE LOWER(CONCAT ('%', :firstName, '%'))") 
+       List<Person>findPersonByName(@Param("firstName") String firstName);
+
+    // 2)
+       @Query("SELECT p FROM Person p WHERE p.id = :id")
+       Person findPersonById(@Param("id") Long id);
+        
+    // 3)
+       @Modyfing
+       @Query("UPDATE Person p SET p.enabled = false WHERE p.id = :id")
+       void disbledPerson(@Param("id") Long id);
+
+    // 4)
+       @Modyfing
+       @Query("UPDATE Person p SET p.firstName WHERE p.firstName = :firstName")
+       void updatePersonFirstName(@Param("firstName") String firstName);
+
+    // 5)
+       @Query("SELECT Person p WHERE p.firstName IS NOT NULL")
+       List<Person> findAllValidPersons();
+
+    // 6)
+       @Query("SELECT Person p WHERE p.address LIKE LOWER( CONCAT('%', :address, '%'))")
+       List<Person> findPersonByAddress(@Param("address") String address);
+    
+    // 7)
+       @Query("SELECT Person p WHERE p.gender = 'male' ")
+       List<Person> findAllMen();
+
+    // 8)
+       @Query("SELECT Person p WHERE p.gender = 'female' ")
+       List<Person> findAllWomans();
+
+    // 9)
+       @Query("SELECT Person p WHERE p.lastName = :lastName ")
+       List<Person> findPersonByLastName(@Param("lastName") String lastName);
+
+    // 10)
+       @Query("UPDATE Person p SET p.enabled = true WHERE p.id = :id")
+       void enabledPerson(@Param("id") Long id);
+}
+
+
+
+
